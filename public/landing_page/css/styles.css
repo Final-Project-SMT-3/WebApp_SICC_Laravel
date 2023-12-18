@@ -1,0 +1,623 @@
+@import "../../admin_page/css/icons/tabler-icons/tabler-icons.css";
+/*--------------------------------------------------------------
+# Root
+--------------------------------------------------------------*/
+* {
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+}
+ul {
+  list-style-type: none;
+}
+html,
+body {
+  font-family: "Poppins";
+  font-weight: 400;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+p {
+  color: #5f6c7b;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../font/Poppins-Regular.ttf") format("ttf");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../font/Poppins-Medium.ttf") format("ttf");
+  font-weight: 500;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../font/Poppins-SemiBold.ttf") format("ttf");
+  font-weight: 600;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../font/Poppins-Bold.ttf") format("ttf");
+  font-weight: 700;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../font/Poppins-ExtraBold.ttf") format("ttf");
+  font-weight: 800;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../font/Poppins-Black.ttf") format("ttf");
+  font-weight: 900;
+}
+:root {
+  --hitam: hsl(0, 0%, 0%);
+  --biru-bg: #356899;
+  --biru-font: #094067;
+  --ungu: #bc7dbd;
+  --putih: #ffffff;
+  --abuabu-gelap: #d9d9d9;
+}
+/*----------- User Auth Page -----------*/
+/*--------------------------------------------------------------
+# Login & Register
+--------------------------------------------------------------*/
+.card-form {
+  width: 100%;
+}
+.title-forms {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.title-forms .title {
+  color: #094067;
+  font-size: 50px;
+  font-weight: 600;
+}
+.underline {
+  background-color: #094067;
+  width: 110px;
+  height: 2px;
+}
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.inputGroup button {
+  width: 50%;
+  background-color: #2d5174;
+  color: white;
+  font-size: 20px;
+  border: none;
+}
+.inputGroup button:hover {
+  background-color: #496f94;
+  color: white;
+}
+.inputGroup p {
+  width: 50%;
+}
+input {
+  appearance: none;
+  border-radius: 0;
+}
+.input {
+  width: 50%;
+  display: flex;
+  flex-direction: column-reverse;
+  position: relative;
+  padding-top: 1.5rem;
+  & + .input {
+    margin-top: 1.5rem;
+  }
+}
+
+.input-label {
+  color: #8f9fad;
+  position: absolute;
+  top: 1.5rem;
+  transition: 0.25s ease;
+}
+
+.input-field {
+  border: 0;
+  z-index: 1;
+  background-color: transparent;
+  border-bottom: 2px solid #8f9fad;
+  font: inherit;
+  font-size: 1.125rem;
+  padding: 0.25rem 0;
+  &:focus,
+  &:valid {
+    outline: 0;
+    border-bottom-color: #2d5174;
+    & + .input-label {
+      color: #2d5174;
+      transform: translateY(-1.5rem);
+    }
+  }
+}
+
+/*--------------------------------------------------------------
+# Illustration Login & Register
+--------------------------------------------------------------*/
+.illustration {
+  background: url("../img/Illustration_bg.png");
+  background-size: cover;
+}
+.illustration-daftar {
+  background: url("../img/Illustration_bg_progress.png");
+  background-size: cover;
+}
+@media (max-width: 768px) {
+  div.illustration {
+    display: none !important;
+  }
+}
+
+/*--------------------------------------------------------------
+# Daftar Lomba 
+--------------------------------------------------------------*/
+
+.tab {
+  display: none;
+  opacity: 0;
+  animation: fadeInOut 0.5s ease forwards;
+}
+
+@keyframes fadeInOut {
+  to {
+    opacity: 1;
+  }
+}
+
+/*----------- Landing Page -----------*/
+
+/*--------------------------------------------------------------
+# Back to top button
+--------------------------------------------------------------*/
+.back-to-top {
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  z-index: 1;
+  background: var(--biru-bg);
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  transition: all 0.4s;
+}
+
+.back-to-top i {
+  font-size: 28px;
+  color: var(--putih);
+  line-height: 0;
+}
+
+.back-to-top:hover {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.back-to-top.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+/*--------------------------------------------------------------
+# Preloader
+--------------------------------------------------------------*/
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 999;
+}
+
+.loader {
+  color: #fff;
+  font-family: Consolas, Menlo, Monaco, monospace;
+  font-weight: bold;
+  font-size: 78px;
+  opacity: 0.8;
+}
+
+.loader:before {
+  content: "{";
+  display: inline-block;
+  animation: pulse 0.4s alternate infinite ease-in-out;
+}
+
+.loader:after {
+  content: "}";
+  display: inline-block;
+  animation: pulse 0.4s 0.3s alternate infinite ease-in-out;
+}
+
+@keyframes pulse {
+  to {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+}
+
+.content {
+  display: none;
+}
+
+/*--------------------------------------------------------------
+# Section General
+--------------------------------------------------------------*/
+
+section:not(.section-lomba-hero):not(.blog) {
+  height: 100vh;
+  padding: 100px 0;
+  overflow: hidden;
+}
+.section-title {
+  padding-bottom: 30px;
+}
+.section-title h4 {
+  font-weight: 600;
+}
+.section-title h2 {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0;
+  line-height: 1px;
+  margin: 0 0 5px 0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--abu);
+}
+.section-title h2::before,
+.section-title h2::after {
+  content: "";
+  width: 100px;
+  height: 1px;
+  display: inline-block;
+  background: var(--biru-font);
+  margin: 4px 10px;
+}
+.section-title p {
+  margin: 0;
+  margin: 0;
+  font-size: 36px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #151515;
+}
+
+/*--------------------------------------------------------------
+# Section Lomba
+--------------------------------------------------------------*/
+#section .section-lomba-hero {
+  padding: 0;
+}
+.section-title-lomba {
+  padding-bottom: 30px;
+}
+.section-title-lomba h4 {
+  font-weight: 400;
+  font-size: 27;
+}
+.section-title-lomba h2 {
+  font-size: 37;
+  font-weight: 600;
+  padding: 0;
+  line-height: 1px;
+  margin: 0 0 5px 0;
+  color: var(--abu);
+}
+
+.section-title-lomba h4::after {
+  content: "";
+  width: 100px;
+  height: 2px;
+  display: inline-block;
+  background: var(--hitam);
+  margin: 4px 10px;
+}
+
+/*--------------------------------------------------------------
+# Navbar
+--------------------------------------------------------------*/
+.navbar {
+  transition: background-color 0.3s;
+}
+.navbar.transparent {
+  background-color: rgba(0, 0, 0, 0);
+}
+.navbar.scrolled {
+  background-color: var(--putih);
+}
+.navbar-brand img {
+  margin-left: 100px;
+}
+.navbar-nav li {
+  margin-right: 40px;
+}
+.navbar-nav li a {
+  font-family: "Poppins";
+  font-weight: 500;
+  position: relative;
+}
+.navbar-nav li a.navActive::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--biru-font);
+  animation: underlineAppear 0.5s forwards;
+}
+@keyframes underlineAppear {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.navbar-nav ul.hitam li a {
+  color: var(--hitam);
+}
+.navbar-nav ul.biru li a {
+  color: var(--biru-font);
+}
+.navbar-nav li:nth-child(4) {
+  margin-right: 50px;
+}
+ul.hitam li:nth-child(6) button {
+  background-color: var(--putih);
+}
+ul.biru li:nth-child(6) button {
+  background-color: var(--biru-bg);
+  color: var(--putih);
+}
+ul.hitam li:nth-child(6) button:hover {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  color: var(--biru-font);
+}
+ul.biru li:nth-child(6) button:hover {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  color: var(--putih);
+}
+ul.hitam li:nth-child(6) button,
+ul.biru li:nth-child(6) button {
+  border-radius: 20px;
+  padding-left: 25px;
+  padding-right: 25px;
+  transition: 0.5s;
+}
+ul.hitam li:nth-child(6) button:not(:hover),
+ul.biru li:nth-child(6) button:not(:hover) {
+  box-shadow: none;
+}
+
+/*--------------------------------------------------------------
+# Hero
+--------------------------------------------------------------*/
+#hero {
+  width: 100%;
+  height: 100vh;
+}
+.hero-img img {
+  width: auto;
+  height: 570px;
+}
+#hero div div:nth-child(1) {
+  z-index: -1;
+}
+#hero div div:nth-child(1) svg:nth-child(1) {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: auto;
+  height: 1000px;
+}
+#hero div div:nth-child(1) svg:nth-child(2) {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: auto;
+  height: 700px;
+}
+#hero div div:nth-child(1) svg:nth-child(3) {
+  position: absolute;
+  left: 0;
+  width: 300px;
+  height: auto;
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+.hero-content button {
+  background-color: var(--putih);
+  border-radius: 20px;
+  padding-left: 25px;
+  padding-right: 25px;
+  transition: 0.5s;
+}
+.hero-content button:hover {
+  background-color: var(--putih);
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  color: var(--biru-font);
+}
+.hero-content button:not(:hover) {
+  box-shadow: none;
+}
+
+/*--------------------------------------------------------------
+# Tentang Kita
+--------------------------------------------------------------*/
+#tentangKita div.container {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+#tentangKita p {
+  font-size: 20px;
+}
+
+/*--------------------------------------------------------------
+# Informasi Lomba
+--------------------------------------------------------------*/
+#informasi div.container {
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+#informasi .card {
+  border-radius: 20px;
+  height: 100%;
+}
+#informasi .card-footer {
+  background-color: transparent;
+  border-top: none;
+}
+@media (min-width: 1024px) {
+}
+
+@media (max-width: 768px) {
+}
+@media (max-width: 425px) {
+  #informasi {
+    height: auto;
+  }
+}
+/*--------------------------------------------------------------
+# FAQ
+--------------------------------------------------------------*/
+.accordion-button {
+  background: rgb(53, 104, 153);
+  background: linear-gradient(
+    156deg,
+    rgba(53, 104, 153, 1) 0%,
+    rgba(188, 125, 189, 1) 100%
+  );
+  color: var(--putih);
+}
+.accordion-button:not(.collapsed) {
+  color: var(--putih);
+}
+.accordion-button:active {
+  background-color: none;
+}
+
+/*--------------------------------------------------------------
+# Hero Lomba
+--------------------------------------------------------------*/
+
+#heroLomba div {
+  position: relative;
+  text-align: left;
+}
+#heroLomba div img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+#heroLomba div h1 {
+  position: absolute;
+  top: 40%;
+  left: 9%;
+}
+
+/*--------------------------------------------------------------
+# Berita Acara
+--------------------------------------------------------------*/
+#beritaAcara div.container:nth-child(2) .col-12 {
+  background-color: var(--abuabu-gelap);
+  border-radius: 20px;
+}
+#beritaAcara div.container:nth-child(2) .col-12 .col-2 i {
+  font-size: 45px;
+  color: var(--biru-bg);
+}
+
+/* --------------------------------------------------------------
+# Blog
+--------------------------------------------------------------*/
+section.blog {
+  padding: 100px 0;
+  overflow: hidden;
+}
+.blog_item {
+  margin-bottom: 50px;
+}
+article {
+  box-shadow: 0px 10px 20px 0px rgba(221, 221, 221, 0.9);
+}
+.blog_details {
+  padding: 30px 0 20px 10px;
+}
+.img-cropped {
+  width: 100%;
+  height: 375px;
+  object-fit: cover;
+}
+@media (min-width: 768px) {
+  .blog_details {
+    padding: 20px 30px 35px 35px;
+  }
+}
+
+.blog_details a {
+  color: #000;
+}
+
+.blog_details a:hover {
+  color: #007bff;
+}
+
+.blog_details h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+@media (min-width: 768px) {
+  .blog_details h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+}
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+footer {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(180deg, #f2f2f2 0%, rgba(53, 104, 153, 1) 100%);
+}
+footer .container {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+footer .container h4 {
+  font-weight: 600;
+}
+footer .container p,
+footer .container,
+footer .container a {
+  color: var(--biru-font);
+}
+.footer-links2 i {
+  font-size: 30px;
+}
