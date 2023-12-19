@@ -20,7 +20,6 @@
                         <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
-                <?php if ($_SESSION['userType'] == 'admin') { ?>
                 <li class="sidebar-item mt-2">
                     <a class="sidebar-link" href="/admin/artikel" dataSelected="admin/artikel/add"
                         aria-expanded="false">
@@ -54,7 +53,6 @@
                         <span class="hide-menu">FAQ</span>
                     </a>
                 </li>
-                <?php } else if ($_SESSION['userType'] == 'dosen') { ?>
                 <li class="sidebar-item mt-2">
                     <a class="sidebar-link" href="/admin/pengajuanBimbingan" aria-expanded="false">
                         <span>
@@ -79,7 +77,6 @@
                         <span class="hide-menu">Pengajuan Proposal</span>
                     </a>
                 </li>
-                <?php } ?>
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

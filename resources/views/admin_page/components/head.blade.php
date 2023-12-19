@@ -1,13 +1,3 @@
-<?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
-if (!isset($_SESSION['loggedIn']) && !$_SESSION['loggedIn'] === true) {
-    header('Location: /login');
-    exit();
-}
-?>
 <!doctype html>
 <html lang="en_US">
 
@@ -22,3 +12,4 @@ if (!isset($_SESSION['loggedIn']) && !$_SESSION['loggedIn'] === true) {
 </head>
 
 <body>
+    @include('sweetalert::alert')
