@@ -13,7 +13,8 @@ class PengajuanBimbinganController extends Controller
      */
     public function index()
     {
-        //
+        $data = DB::table('');
+        return view('admin_page.pages.pengajuan_bimbingan.pengajuanBimbingan');
     }
 
     /**

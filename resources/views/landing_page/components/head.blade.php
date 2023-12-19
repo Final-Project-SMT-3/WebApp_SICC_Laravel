@@ -7,9 +7,9 @@
         'verified' => 'Terverifikasi',
     ];
 
-    $currentUrl = request()->segment(1); // Ambil bagian pertama dari URL saat ini
+    $currentUrl = request()->segment(1);
 
-    $title = $pageTitles[$currentUrl] ?? 'Halaman Utama'; // Gunakan judul default jika tidak ada yang cocok
+    $title = $pageTitles[$currentUrl] ?? 'Halaman Utama';
 @endphp
 <!DOCTYPE html>
 <html lang="en">

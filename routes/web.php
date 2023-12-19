@@ -32,7 +32,7 @@ Route::view('/daftarLomba', 'landing_page.pages.daftarLomba');
 
 Route::prefix('/admin')
     ->name('admin.')
-    ->group(function(){
+    ->group(function () {
         Route::view('/', 'admin_page.index');
         Route::resource('/blog', BlogController::class);
         Route::resource('/lomba', LombaController::class);
