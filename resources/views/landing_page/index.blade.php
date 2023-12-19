@@ -48,9 +48,9 @@
                 </svg>
             </div>
             <div class="row hero-content" data-aos="fade-up">
-                <div class="col-lg-6 d-flex flex-column justify-content-center">
+                <div class="col-lg-6 col-sm-12 d-flex flex-column justify-content-center">
                     <h6 class="fs-1" style="color: #094067;"><b>Selamat Datang di SI CC !</b></h6>
-                    <p class="lead my-4 fs-5">
+                    <p class="my-4 fs-5 fs-sm-4">
                         SI CC adalah sistem Informasi yang <br>
                         menyatukan berbagai macam informasi lomba <br>
                         seperti PKM, KMIPN, Gemastik, dan Pilmapres
@@ -60,7 +60,7 @@
                                 class="ti ti-arrow-right ms-3"></i> </button>
                     </a>
                 </div>
-                <div class="col-lg-6 hero-img">
+                <div class="col-lg-6 col-sm-6 hero-img">
                     <img src="{{ asset('landing_page') }}/img/hero_img.png" alt="">
                 </div>
             </div>
