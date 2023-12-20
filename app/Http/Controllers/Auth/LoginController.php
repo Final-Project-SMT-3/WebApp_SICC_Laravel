@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -39,10 +42,22 @@ class LoginController extends Controller
         $this->email = $this->findUsername();
     }
 
-    public function findUsername(){
+    public function findUsername()
+    {
         $user = request()->input('user');
         $fieldType = filter_var($user, FILTER_VALIDATE_EMAIL) ? 'email' : 'no_identitas';
         request()->merge([$fieldType => $user]);
         return $fieldType;
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->tipe === 'mahasiswa') {
+            return redirect('/verified');
+        } elseif ($user->tipe === 'dosen') {
+            return redirect('/admin');
+        } else {
+            abort(Response::HTTP_NOT_FOUND);
+        }
     }
 }

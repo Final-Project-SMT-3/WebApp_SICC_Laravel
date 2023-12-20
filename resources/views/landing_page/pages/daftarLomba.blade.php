@@ -15,7 +15,7 @@
                         <!-- Steps -->
                         <div class="tab">
                             <h3>Step 1: Membuat Password</h3>
-                            <!-- Input fields for leader's biodata -->
+
                             <div class="input">
                                 <input class="input-field" type="number" min="0" max="99999" name="otp"
                                     required />
@@ -27,7 +27,7 @@
                                     required />
                                 <label class="input-label">Password</label>
                             </div>
-                            <!-- Next and Previous buttons -->
+
                             <button type="button" class="prevBtn btn" onclick="nextPrev(-1)">
                                 Previous
                             </button>
@@ -45,9 +45,8 @@
                                     <?= $item['nama_lomba'] ?>
                                 </option>
                                 <?php } ?> --}}
-
                             </select>
-                            <!-- Next and Previous buttons -->
+
                             <button type="button" class="nextBtn btn" onclick="nextPrev(1)">
                                 Next
                             </button>
@@ -70,7 +69,7 @@
 
                         <div class="tab">
                             <h3>Step 4: Biodata Kelompok</h3>
-                            <!-- Input fields for member's biodata -->
+
                             <label for="memberName">Nama Ketua:</label>
                             <input class="form-control" type="text" id="memberName" name="namaKetua" required />
                             <label for="memberEmail">NIM Ketua:</label>
@@ -88,7 +87,6 @@
                             <label for="memberEmail">NIM Anggota 3:</label>
                             <input class="form-control" type="text" id="memberEmail" name="nimAnggota[]" required />
 
-                            <!-- Next and Previous buttons -->
                             <button type="button" class="prevBtn btn" onclick="nextPrev(-1)">
                                 Previous
                             </button>
