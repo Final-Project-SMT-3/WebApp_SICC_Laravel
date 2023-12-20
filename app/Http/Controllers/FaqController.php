@@ -21,7 +21,6 @@ class FaqController extends Controller
     public function index()
     {
         $param['data'] = FAQ::orderBy('id', 'asc')->get();
-
         return view('admin_page.pages.faq.faq', $param);
     }
 
@@ -68,11 +67,11 @@ class FaqController extends Controller
 
             Alert::success('Berhasil', 'Berhasil menambahkan data FAQ');
             return redirect()->route('admin.faq.index');
-        } catch (Exception $e){
+        } catch (Exception $e) {
             DB::rollBack();
             Alert::success('Terjadi kesalahan', $e->getMessage());
             return redirect()->back();
-        } catch (QueryException $e){
+        } catch (QueryException $e) {
             DB::rollBack();
             Alert::success('Terjadi kesalahan', $e->getMessage());
             return redirect()->back();
@@ -98,15 +97,15 @@ class FaqController extends Controller
      */
     public function edit($id)
     {
-        try{
+        try {
             $data = FAQ::find($id);
-            if($data != null){
+            if ($data != null) {
                 $param['data'] = $data;
                 return view('admin_page.pages.faq.faq_edit', $param);
-            } 
+            }
             Alert::error('Terjadi kesalahan', 'Data tidak ditemukan');
             return redirect()->back();
-        } catch(Exception $e){
+        } catch (Exception $e) {
             dd($e);
             Alert::error('Terjadi kesalahan', $e->getMessage());
             return redirect()->back();
@@ -122,6 +121,7 @@ class FaqController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd($request->radioTipe);
         DB::beginTransaction();
         try {
             $validate = $request->validate([
@@ -146,11 +146,11 @@ class FaqController extends Controller
 
             Alert::success('Berhasil', 'Berhasil menambahkan data FAQ');
             return redirect()->route('admin.faq.index');
-        } catch (Exception $e){
+        } catch (Exception $e) {
             DB::rollBack();
             Alert::success('Terjadi kesalahan', $e->getMessage());
             return redirect()->back();
-        } catch (QueryException $e){
+        } catch (QueryException $e) {
             DB::rollBack();
             Alert::success('Terjadi kesalahan', $e->getMessage());
             return redirect()->back();
@@ -168,10 +168,10 @@ class FaqController extends Controller
         try {
             $data = FAQ::find($id);
             $data->delete();
-            
+
             Alert::success('Berhasil', 'Berhasil menghapus data');
             return redirect()->back();
-        } catch(Exception $e){
+        } catch (Exception $e) {
             DB::rollBack();
             Alert::success('Terjadi kesalahan', $e->getMessage());
             return redirect()->back();

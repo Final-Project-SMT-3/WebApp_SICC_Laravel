@@ -25,6 +25,45 @@
             URL.revokeObjectURL(output.src) // free memory
         }
     };
+
+    function showConfirmationModal(action, id) {
+        var finalRoute = "";
+
+        switch (action) {
+            case 'Accept':
+                finalRoute = "pengajuanBimbingan/updateAccept/" + id;
+                break;
+            case 'Decline':
+                finalRoute = "pengajuanBimbingan/updateDecline/" + id;
+                break;
+            default:
+                break;
+        }
+
+        Swal.fire({
+            title: 'Konfirmasi',
+            text: `Apakah Anda yakin ingin ${action} kelompok ini?`,
+            icon: 'warning',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = finalRoute;
+            }
+        });
+    }
+
+    @if (Session::has('success'))
+        Swal.fire('Sukses', '{{ Session::get('success') }}', 'success');
+    @endif
+
+    @if (Session::has('error'))
+        Swal.fire('Error', '{{ Session::get('error') }}', 'error');
+    @endif
 </script>
 </body>
 
