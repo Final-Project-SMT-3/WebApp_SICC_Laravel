@@ -27,8 +27,9 @@ class PendaftaranController extends Controller
                 ->insertGetId([
                     'name' => $request->get('nama_ketua'),
                     'email' => $request->get('email'),
-                    'password' => Hash::make($request->get('password')),
-                    'role' => 'Mahasiswa'
+                    'password' => Hash::make($request->get('password')),    
+                    'role' => 'Mahasiswa',
+                    'created_at' => now()
                 ]);
             DB::commit();
             $status = 1;
@@ -44,6 +45,7 @@ class PendaftaranController extends Controller
         } finally {
             $response = [
                 'status' => $status,
+                'status_code' => $responseCode,
                 'message' => $message,
                 'data' => $data
             ];
@@ -87,6 +89,7 @@ class PendaftaranController extends Controller
         } finally {
             $response = [
                 'status' => $status,
+                'status_code' => $responseCode,
                 'message' => $message,
                 'data'  => $data
             ];
@@ -125,6 +128,7 @@ class PendaftaranController extends Controller
         } finally {
             $response = [
                 'status' => $status,
+                'status_code' => $responseCode,
                 'message' => $message,
                 'data' => $data
             ];
@@ -153,6 +157,7 @@ class PendaftaranController extends Controller
         } finally {
             $response = [
                 'status' => $status,
+                'status_code' => $responseCode,
                 'message' => $message,
                 'data' => $data
             ];
@@ -191,6 +196,7 @@ class PendaftaranController extends Controller
         } finally {
             $response = [
                 'status' => $status,
+                'status_code' => $responseCode,
                 'message' => $message,
                 'data' => $data
             ];
