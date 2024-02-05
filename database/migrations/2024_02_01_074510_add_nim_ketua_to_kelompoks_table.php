@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddNimToUsersTable extends Migration
+class AddNimKetuaToKelompoksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class AddNimToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('no_identitas')->nullable();
-            $table->string('nama')->nullable();
-            $table->string('nama_anggota')->nullable();
-            $table->string('nim_anggota')->nullable();
+        Schema::table('kelompoks', function (Blueprint $table) {
+            $table->string('nim_ketua', 30)->after('nama_kelompok');
         });
     }
 
@@ -28,7 +25,7 @@ class AddNimToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('kelompoks', function (Blueprint $table) {
             //
         });
     }
