@@ -32,6 +32,10 @@ Route::view('/daftarLomba', 'landing_page.pages.daftarLomba');
 
 Auth::routes();
 Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
+    Route::middleware(['auth', 'role:admin,mahasiswa'])->group(function () {
+        // Rute yang memerlukan otorisasi berdasarkan peran (role)
+    });
+
     Route::view('/', 'admin_page.index');
     Route::resource('/blog', BlogController::class);
     Route::resource('/lomba', LombaController::class);
