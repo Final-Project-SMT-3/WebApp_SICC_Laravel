@@ -33,7 +33,7 @@ class PendaftaranController extends Controller
                 ]);
             DB::commit();
             $status = 1;
-            $message = 'Berhasil membuat akun baru';
+            $message = 'Success';
         } catch(Exception $e){
             DB::rollBack();
             $message = 'Terjadi kesalahan. ' . $e->getMessage();
@@ -47,7 +47,7 @@ class PendaftaranController extends Controller
                 'status' => $status,
                 'status_code' => $responseCode,
                 'message' => $message,
-                'data' => $data
+                'response' => $data
             ];
 
             return response()->json($response, $responseCode);
@@ -72,7 +72,7 @@ class PendaftaranController extends Controller
                     $dataReturn->kelompok = $dataKelompok ?? null;
                     
                     $data = $dataReturn;
-                    $message = 'Anda berhasil login.';
+                    $message = 'Success';
                     $status = 1;
                 } else {
                     $message = 'Password yang anda masukkan salah.';
@@ -91,7 +91,7 @@ class PendaftaranController extends Controller
                 'status' => $status,
                 'status_code' => $responseCode,
                 'message' => $message,
-                'data'  => $data
+                'response'  => $data
             ];
 
             return response()->json($response, $responseCode);
@@ -116,7 +116,7 @@ class PendaftaranController extends Controller
                 ]);
             DB::commit();
             $status = 1;
-            $message = 'Berhasil menambahkan data kelompok.';
+            $message = 'Success';
         } catch(Exception $e){
             DB::rollBack();
             $message = 'Terjadi kesalahan. ' . $e->getMessage();
@@ -130,7 +130,7 @@ class PendaftaranController extends Controller
                 'status' => $status,
                 'status_code' => $responseCode,
                 'message' => $message,
-                'data' => $data
+                'response' => $data
             ];
 
             return response()->json($response, $responseCode);
@@ -147,7 +147,7 @@ class PendaftaranController extends Controller
             $data = Kelompok::find($request->get('id'));
 
             $status = 1;
-            $message = 'Berhasil menampilkan data.';
+            $message = 'Success';
         } catch (Exception $e){
             $message = 'Terjadi kesalahan. ' . $e->getMessage();
             $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
@@ -159,7 +159,7 @@ class PendaftaranController extends Controller
                 'status' => $status,
                 'status_code' => $responseCode,
                 'message' => $message,
-                'data' => $data
+                'response' => $data
             ];
 
             return response()->json($response, $responseCode);
@@ -184,7 +184,7 @@ class PendaftaranController extends Controller
                 ]);
             DB::commit();
             $status = 1;
-            $message = 'Berhasil mengubah data kelompok.';
+            $message = 'Success';
         } catch(Exception $e){
             DB::rollBack();
             $message = 'Terjadi kesalahan. ' . $e->getMessage();
@@ -198,7 +198,7 @@ class PendaftaranController extends Controller
                 'status' => $status,
                 'status_code' => $responseCode,
                 'message' => $message,
-                'data' => $data
+                'response' => $data
             ];
 
             return response()->json($response, $responseCode);
