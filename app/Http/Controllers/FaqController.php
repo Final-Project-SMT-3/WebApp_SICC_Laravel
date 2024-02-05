@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FAQ;
+use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class FaqController extends Controller
 {
+    private $param;
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +20,8 @@ class FaqController extends Controller
      */
     public function index()
     {
-        //
+        $param['data'] = FAQ::orderBy('id', 'asc')->get();
+        return view('admin_page.pages.faq.faq', $param);
     }
 
     /**
@@ -23,7 +31,7 @@ class FaqController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin_page.pages.faq.faq_add');
     }
 
     /**
@@ -34,7 +42,40 @@ class FaqController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        DB::beginTransaction();
+        try {
+            $validate = $request->validate([
+                'pertanyaan' => 'required',
+                'jawaban' => 'required',
+                'radioTipe' => 'required'
+            ], [
+                'required' => ':attribute harus diisi!'
+            ], [
+                'pertanyaan' => 'Pertanyaan',
+                'jawaban' => 'Jawaban',
+                'radioTipe' => 'Tipe',
+            ]);
+
+            FAQ::insert([
+                'pertanyaan' => $request->pertanyaan,
+                'jawaban' => $request->jawaban,
+                'tipe' => $request->radioTipe,
+                'created_at' => now()
+            ]);
+            DB::commit();
+
+            Alert::success('Berhasil', 'Berhasil menambahkan data FAQ');
+            return redirect()->route('admin.faq.index');
+        } catch (Exception $e) {
+            DB::rollBack();
+            Alert::success('Terjadi kesalahan', $e->getMessage());
+            return redirect()->back();
+        } catch (QueryException $e) {
+            DB::rollBack();
+            Alert::success('Terjadi kesalahan', $e->getMessage());
+            return redirect()->back();
+        }
     }
 
     /**
@@ -56,7 +97,19 @@ class FaqController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $data = FAQ::find($id);
+            if ($data != null) {
+                $param['data'] = $data;
+                return view('admin_page.pages.faq.faq_edit', $param);
+            }
+            Alert::error('Terjadi kesalahan', 'Data tidak ditemukan');
+            return redirect()->back();
+        } catch (Exception $e) {
+            dd($e);
+            Alert::error('Terjadi kesalahan', $e->getMessage());
+            return redirect()->back();
+        }
     }
 
     /**
@@ -68,7 +121,40 @@ class FaqController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd($request->radioTipe);
+        DB::beginTransaction();
+        try {
+            $validate = $request->validate([
+                'pertanyaan' => 'required',
+                'jawaban' => 'required',
+                'radioTipe' => 'required'
+            ], [
+                'required' => ':attribute harus diisi!'
+            ], [
+                'pertanyaan' => 'Pertanyaan',
+                'jawaban' => 'Jawaban',
+                'radioTipe' => 'Tipe',
+            ]);
+
+            FAQ::where('id', $id)->update([
+                'pertanyaan' => $request->pertanyaan,
+                'jawaban' => $request->jawaban,
+                'tipe' => $request->radioTipe,
+                'created_at' => now()
+            ]);
+            DB::commit();
+
+            Alert::success('Berhasil', 'Berhasil menambahkan data FAQ');
+            return redirect()->route('admin.faq.index');
+        } catch (Exception $e) {
+            DB::rollBack();
+            Alert::success('Terjadi kesalahan', $e->getMessage());
+            return redirect()->back();
+        } catch (QueryException $e) {
+            DB::rollBack();
+            Alert::success('Terjadi kesalahan', $e->getMessage());
+            return redirect()->back();
+        }
     }
 
     /**
@@ -79,6 +165,16 @@ class FaqController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $data = FAQ::find($id);
+            $data->delete();
+
+            Alert::success('Berhasil', 'Berhasil menghapus data');
+            return redirect()->back();
+        } catch (Exception $e) {
+            DB::rollBack();
+            Alert::success('Terjadi kesalahan', $e->getMessage());
+            return redirect()->back();
+        }
     }
 }

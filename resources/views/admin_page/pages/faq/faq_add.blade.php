@@ -5,8 +5,18 @@
             <div class="card-body">
                 <h5 class="card-title fw-semibold mb-4">Tambah FAQ</h5>
                 <p class="mb-5">Ini adalah halaman untuk menambah FAQ</p>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
-                <form class="row" action="/admin/MasterFaq/store" method="POST">
+                <form class="row" action="{{ route('admin.faq.store') }}" enctype="multipart/form-data" method="POST">
+                    @csrf
                     <div class="mb-3 col-md-12">
                         <label class="form-label">Pertanyaan</label>
                         <input name="pertanyaan" type="text" class="form-control" id="">

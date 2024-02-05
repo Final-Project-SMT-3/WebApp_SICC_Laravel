@@ -1,7 +1,13 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\JuaraController;
+use App\Http\Controllers\LombaController;
+use App\Http\Controllers\PengajuanBimbinganController;
+use App\Http\Controllers\PengajuanJudulController;
+use App\Http\Controllers\PengajuanProposalController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,18 +23,29 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'landing_page.index');
 Route::view('/lomba', 'landing_page.pages.detailLomba');
-Route::view('/login', 'landing_page.pages.login');
-Route::view('/register', 'landing_page.pages.register');
+// Route::view('/login', 'landing_page.pages.login');
+// Route::view('/register', 'landing_page.pages.register');
 Route::view('/forgetPassword', 'landing_page.pages.forgetPassword');
 Route::view('/changePassword', 'landing_page.pages.changePassword');
 Route::view('/verified', 'landing_page.pages.verified');
 Route::view('/daftarLomba', 'landing_page.pages.daftarLomba');
 
-Route::view('/admin', 'admin_page.index');
-Route::resource('/admin/blog', BlogController::class);
-Route::resource('/admin/lomba', LombaController::class);
-Route::resource('/admin/faq', FaqController::class);
-Route::resource('/admin/juara', JuaraController::class);
-Route::resource('/admin/pengajuanBimbingan', PengajuanBimbinganController::class);
-Route::resource('/admin/pengajuanJudul', PengajuanJudulController::class);
-Route::resource('/admin/PengajuanProposal', PengajuanProposalController::class);
+Auth::routes();
+Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
+    Route::middleware(['auth', 'role:admin,mahasiswa'])->group(function () {
+        // Rute yang memerlukan otorisasi berdasarkan peran (role)
+    });
+
+    Route::view('/', 'admin_page.index');
+    Route::resource('/blog', BlogController::class);
+    Route::resource('/lomba', LombaController::class);
+    Route::resource('/faq', FaqController::class);
+    Route::resource('/juara', JuaraController::class);
+    Route::resource('/pengajuanBimbingan', PengajuanBimbinganController::class);
+    Route::get('/pengajuanBimbingan/updateAccept/{id}', [PengajuanBimbinganController::class, 'updateAccept'])->name('pengajuanBimbingan.updateAccept');
+    Route::get('/pengajuanBimbingan/updateDecline/{id}', [PengajuanBimbinganController::class, 'updateDecline'])->name('pengajuanBimbingan.updateDecline');
+    Route::resource('/pengajuanJudul', PengajuanJudulController::class);
+    Route::resource('/pengajuanProposal', PengajuanProposalController::class);
+});
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

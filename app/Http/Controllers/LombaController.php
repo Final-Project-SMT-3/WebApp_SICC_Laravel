@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lomba;
 use Illuminate\Http\Request;
 
 class LombaController extends Controller
 {
+    private $param;
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +15,10 @@ class LombaController extends Controller
      */
     public function index()
     {
-        //
+        $data = Lomba::orderBy('id', 'asc')->get();
+        $param['data'] = $data;
+
+        return view('admin_page.pages.lomba.lomba', compact('param'));
     }
 
     /**

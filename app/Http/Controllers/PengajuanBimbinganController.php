@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class PengajuanBimbinganController extends Controller
 {
@@ -13,7 +17,15 @@ class PengajuanBimbinganController extends Controller
      */
     public function index()
     {
-        //
+        $id = Auth::user()->id;
+        $data = DB::table('pemilihan_dospem')
+            ->select('pemilihan_dospem.id', 'nama_kelompok', 'nama_anggota', 'nim_anggota')
+            ->join('users', 'users.id', '=', 'pemilihan_dospem.id_dosen')
+            ->join('kelompok', 'pemilihan_dospem.id_mhs', '=', 'kelompok.id_mhs')
+            ->where('pemilihan_dospem.status', '=', 'Waiting Approval')
+            ->where('users.id', '=', $id)
+            ->get();
+        return view('admin_page.pages.pengajuan_bimbingan.pengajuanBimbingan', compact('data'));
     }
 
     /**
@@ -69,6 +81,47 @@ class PengajuanBimbinganController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+    public function updateAccept($id)
+    {
+        DB::beginTransaction();
+        try {
+            DB::table('pemilihan_dospem')
+                ->where('id', $id)
+                ->update([
+                    'status' => 'Accept',
+                    'updated_at' => now()
+                ]);
+
+            DB::commit();
+
+            return Redirect::back()->with('success', 'Kelompok berhasil diterima.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return Redirect::back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
+
+    public function updateDecline($id)
+    {
+        DB::beginTransaction();
+        try {
+            DB::table('pemilihan_dospem')
+                ->where('id', $id)
+                ->update([
+                    'status' => 'Decline',
+                    'updated_at' => now()
+                ]);
+
+            DB::commit();
+            return Redirect::back()->with('success', 'Kelompok berhasil ditolak.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return Redirect::back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\PendaftaranController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/register', [PendaftaranController::class, 'register']);
+Route::post('/login', [PendaftaranController::class, 'login']);
+Route::post('/insert-kelompok', [PendaftaranController::class, 'insertKelompok']);
+Route::get('/get-edit-kelompok', [PendaftaranController::class, 'getEditKelompok']);
+Route::post('/edit', [PendaftaranController::class, 'edit']);
