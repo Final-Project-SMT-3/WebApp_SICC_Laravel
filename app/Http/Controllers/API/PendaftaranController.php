@@ -110,8 +110,9 @@ class PendaftaranController extends Controller
                 ->insertGetId([
                     'nama_kelompok' => $request->get('nama_kelompok'),
                     'nama_ketua' => $request->get('nama_ketua'),
-                    // 'nim_ketua' => $request->get('nim_ketua'),
-                    'nama_anggota' => $request->get('anggota'),
+                    'nim_ketua' => $request->get('nim_ketua'),
+                    'no_hp_ketua' => $request->get('no_hp_ketua'),
+                    'prodi_ketua' => $request->get('prodi_ketua'),
                     'user_id' => $request->get('user_id')
                 ]);
             DB::commit();
