@@ -18,7 +18,7 @@ class AnggotaKelompok extends Migration
             $table->unsignedBigInteger('id_kelompok')->nullable();
             $table->string('nama_anggota');
             $table->string('nim_anggota');
-            $table->string('prodi_ketua');
+            $table->string('prodi_anggota');
             $table->timestamps();
         });
     }
