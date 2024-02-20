@@ -23,7 +23,7 @@ class PendaftaranController extends Controller
 
         DB::beginTransaction();
         try{
-            $data = DB::table('users')
+            $userId = DB::table('users')
                 ->insertGetId([
                     'name' => $request->get('nama_ketua'),
                     'email' => $request->get('email'),
@@ -31,9 +31,20 @@ class PendaftaranController extends Controller
                     'role' => 'Mahasiswa',
                     'created_at' => now()
                 ]);
+
+            $kelompokId = DB::table('kelompoks')
+                ->insertGetId([
+                    'nama_ketua' => $request->get('nama_ketua'),
+                    'created_at' => now()
+                ]);
+
             DB::commit();
             $status = 1;
             $message = 'Success';
+            $data =[
+                "user_data" => $userId,
+                "kelompok_data" => $kelompokId
+            ];
         } catch(Exception $e){
             DB::rollBack();
             $message = 'Terjadi kesalahan. ' . $e->getMessage();
@@ -67,10 +78,10 @@ class PendaftaranController extends Controller
             if($user != null){
                 if(Hash::check($request->get('password'), $user->password)){
                     $dataReturn = new stdClass;
-                    $dataKelompok = Kelompok::where('user_id', $user->id)->first();
+                    $dataKelompok = Kelompok::where('id', $user->id)->with('anggota')->first();
                     $dataReturn->user = $user;
                     $dataReturn->kelompok = $dataKelompok ?? null;
-                    
+
                     $data = $dataReturn;
                     $message = 'Success';
                     $status = 1;
@@ -98,6 +109,41 @@ class PendaftaranController extends Controller
         }
     }
 
+    public function getDataKelompok(Request $request) {
+        $status = 0;
+        $message = '';
+        $data = null;
+        
+        try {
+            $responseCode = Response::HTTP_OK;
+            $user = User::where('id', $request->get('id'))->first();
+
+            if ($user != null) {
+                $data = Kelompok::where('id', $user->id)->with('anggota')->first();
+            } else {
+                $message = 'Data kelompok tidak dapat ditemukan';
+            }
+
+            $status = 1;
+            $message = 'Success';
+        } catch (Exception $e){
+            $message = 'Terjadi kesalahan. ' . $e->getMessage();
+            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+        } catch (QueryException $e){
+            $message = 'Terjadi kesalahan. ' . $e->getMessage();
+            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+        } finally {
+            $response = [
+                'status' => $status,
+                'status_code' => $responseCode,
+                'message' => $message,
+                'response' => $data
+            ];
+
+            return response()->json($response, $responseCode);
+        }
+    }
+
     public function insertKelompok(Request $request){
         $status = 0;
         $message = '';
@@ -113,7 +159,7 @@ class PendaftaranController extends Controller
                     'nim_ketua' => $request->get('nim_ketua'),
                     'no_hp_ketua' => $request->get('no_hp_ketua'),
                     'prodi_ketua' => $request->get('prodi_ketua'),
-                    'user_id' => $request->get('user_id')
+                    'created_at' => now()
                 ]);
             DB::commit();
             $status = 1;

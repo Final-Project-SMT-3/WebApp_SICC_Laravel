@@ -15,10 +15,10 @@ class CreateKelompoksTable extends Migration
     {
         Schema::create('kelompoks', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_kelompok');
+            $table->string('nama_kelompok')->nullable();
             $table->string('nama_ketua');
-            $table->string('noHp_ketua');
-            $table->string('prodi_ketua');
+            $table->string('noHp_ketua')->nullable();
+            $table->string('prodi_ketua')->nullable();
             $table->timestamps();
         });
     }

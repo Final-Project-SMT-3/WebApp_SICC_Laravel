@@ -14,7 +14,7 @@ class AddNimKetuaToKelompoksTable extends Migration
     public function up()
     {
         Schema::table('kelompoks', function (Blueprint $table) {
-            $table->string('nim_ketua', 30)->after('nama_kelompok');
+            $table->string('nim_ketua', 30)->after('nama_kelompok')->nullable();
         });
     }
 

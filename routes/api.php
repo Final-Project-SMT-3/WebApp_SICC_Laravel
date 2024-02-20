@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/register', [PendaftaranController::class, 'register']);
 Route::post('/login', [PendaftaranController::class, 'login']);
+Route::post('/get-data-kelompok', [PendaftaranController::class, 'getDataKelompok']);
 Route::post('/insert-kelompok', [PendaftaranController::class, 'insertKelompok']);
 Route::get('/get-edit-kelompok', [PendaftaranController::class, 'getEditKelompok']);
 Route::post('/edit', [PendaftaranController::class, 'edit']);

@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Kelompok extends Model
 {
     use HasFactory;
+
+    protected $table = 'kelompoks';
+
+    public function anggota() {
+        return $this->hasMany(Anggota::class, 'id_kelompok');
+    }
 }
