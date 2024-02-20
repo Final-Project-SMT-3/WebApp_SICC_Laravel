@@ -21,6 +21,14 @@
                     </a>
                 </li>
                 <li class="sidebar-item mt-2">
+                    <a class="sidebar-link" href="/admin/acc" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-check"></i>
+                        </span>
+                        <span class="hide-menu">Acc Pendaftar</span>
+                    </a>
+                </li>
+                <li class="sidebar-item mt-2">
                     <a class="sidebar-link" href="/admin/artikel" dataSelected="admin/artikel/add"
                         aria-expanded="false">
                         <span>
@@ -53,7 +61,7 @@
                         <span class="hide-menu">FAQ</span>
                     </a>
                 </li>
-                <li class="sidebar-item mt-2">
+                {{-- <li class="sidebar-item mt-2">
                     <a class="sidebar-link" href="/admin/pengajuanBimbingan" aria-expanded="false">
                         <span>
                             <i class="ti ti-checklist"></i>
@@ -76,7 +84,7 @@
                         </span>
                         <span class="hide-menu">Pengajuan Proposal</span>
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </nav>
         <!-- End Sidebar navigation -->
