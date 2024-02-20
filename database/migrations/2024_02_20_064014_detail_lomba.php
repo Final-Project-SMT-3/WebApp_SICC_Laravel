@@ -16,8 +16,8 @@ class DetailLomba extends Migration
         Schema::create('master_detail_lomba', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_mst_lomba');
-            $table->string('detail_lomba');
-            $table->string('foto');
+            $table->longText('detail_lomba');
+            $table->string('foto')->nullable();
             $table->timestamps();
         });
     }
