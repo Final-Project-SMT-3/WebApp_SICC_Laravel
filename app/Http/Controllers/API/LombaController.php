@@ -56,4 +56,47 @@ class LombaController extends Controller
             return response()->json($response, $responseCode);
         }
     }
+
+    public function getDataLombaById($id) {
+        $status = 0;
+        $message = '';
+        $responseCode = Response::HTTP_BAD_REQUEST;
+        $data = null;
+        
+        try {
+            $status = 1;
+            $message = 'Berhasil menampilkan data lomba berdasarkan id.';
+            $responseCode = Response::HTTP_OK;
+            $lomba = Lomba::find($id);
+
+            if($lomba) {
+                $lomba->detail_lomba = DB::table('master_detail_lomba')
+                    ->where('id_mst_lomba', $lomba->id)
+                    ->get();
+
+                $lomba->pelaksanaan_lomba = DB::table('master_detail_lomba')
+                    ->where('id_mst_lomba', $lomba->id)
+                    ->get();
+                $data = $lomba;
+            } else {
+                $message = 'Data Lomba masih belum tersedia.';
+            }
+        } catch (Exception $e) {
+            $status = 0;
+            $message = 'Terjadi kesalahan. ' . $e->getMessage();
+            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+        } catch (QueryException $e) {
+            $status = 0;
+            $message = 'Terjadi kesalahan. ' . $e->getMessage();
+            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+        } finally {
+            $response = [
+                'status' => $status,
+                'message' => $message,
+                'data' => $data
+            ];
+
+            return response()->json($response, $responseCode);
+        }
+    }
 }

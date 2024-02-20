@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('/get-data-lomba')
     ->group(function () {
         Route::get('/', [LombaController::class, 'getDataLomba']);
+        Route::get('/{id}', [LombaController::class, 'getDataLombaById']);
     });
 
 Route::post('/register', [PendaftaranController::class, 'register']);
