@@ -17,28 +17,32 @@ class pelaksanaan_lomba extends Seeder
         ModelsPelaksanaan_Lomba::insert([
             [
                 'id_mst_lomba' => 1,
-                'tanggal' => now(),
+                'tanggal_mulai' => now(),
+                'tanggal_selesai' => now(),
                 'info' => 'PKM-KI',
                 'status' => 'Soon',
                 'created_at' => now()
             ],
             [
                 'id_mst_lomba' => 2,
-                'tanggal' => now(),
+                'tanggal_mulai' => now(),
+                'tanggal_selesai' => now(),
                 'info' => 'PILMAPRES',
                 'status' => 'Soon',
                 'created_at' => now()
             ],
             [
                 'id_mst_lomba' => 3,
-                'tanggal' => now(),
+                'tanggal_mulai' => now(),
+                'tanggal_selesai' => now(),
                 'info' => 'Hackthon',
                 'status' => 'Soon',
                 'created_at' => now()
             ],  
             [
                 'id_mst_lomba' => 4,
-                'tanggal' => now(),
+                'tanggal_mulai' => now(),
+                'tanggal_selesai' => now(),
                 'info' => 'Keamanan Siber',
                 'status' => 'Soon',
                 'created_at' => now()

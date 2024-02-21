@@ -16,7 +16,8 @@ class PelaksanaanLomba extends Migration
         Schema::create('pelaksanaan_lomba', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_mst_lomba');
-            $table->date('tanggal');
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
             $table->string('info');
             $table->enum('status', ['Soon', 'On Going', 'Done']);
             $table->timestamps();
