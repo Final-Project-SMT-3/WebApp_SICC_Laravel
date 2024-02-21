@@ -19,7 +19,7 @@
                     </thead>
                     <tbody>
 
-                        @if (count($data) > 0)
+                        {{-- @if (count($data) > 0)
                             @foreach ($data as $item)
                                 <tr>
                                     <td>
@@ -51,11 +51,11 @@
                                     </td>
                                 </tr>
                             @endforeach
-                        @else
-                            <tr>
-                                <td colspan="5" class="text-center">Belum ada data</td>
-                            </tr>
-                        @endif
+                        @else --}}
+                        <tr>
+                            <td colspan="5" class="text-center">Belum ada data</td>
+                        </tr>
+                        {{-- @endif --}}
                     </tbody>
                 </table>
             </div>

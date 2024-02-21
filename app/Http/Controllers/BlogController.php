@@ -13,7 +13,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin_page.pages.blog.blog');
     }
 
     /**

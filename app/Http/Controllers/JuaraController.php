@@ -13,7 +13,7 @@ class JuaraController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin_page.pages.juara.juara');
     }
 
     /**

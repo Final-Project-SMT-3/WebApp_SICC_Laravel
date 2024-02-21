@@ -28,15 +28,14 @@
                         <span class="hide-menu">Acc Pendaftar</span>
                     </a>
                 </li>
-                <li class="sidebar-item mt-2">
-                    <a class="sidebar-link" href="/admin/artikel" dataSelected="admin/artikel/add"
-                        aria-expanded="false">
+                {{-- <li class="sidebar-item mt-2">
+                    <a class="sidebar-link" href="/admin/blog" aria-expanded="false">
                         <span>
                             <i class="ti ti-news"></i>
                         </span>
                         <span class="hide-menu">Artikel</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="sidebar-item mt-2">
                     <a class="sidebar-link" href="/admin/lomba" aria-expanded="false">
                         <span>

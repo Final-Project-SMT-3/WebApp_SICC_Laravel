@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class FAQ extends Model
 {
     use HasFactory;
-    protected $table = 'master_question';
+    protected $table = 'mst_faq';
 }
