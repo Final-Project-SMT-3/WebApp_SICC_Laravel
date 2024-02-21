@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class PelaksanaanLomba extends Migration
+class CreateOtpTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class PelaksanaanLomba extends Migration
      */
     public function up()
     {
-        Schema::create('pelaksanaan_lomba', function (Blueprint $table) {
+        Schema::create('otp', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_mst_lomba');
-            $table->date('tanggal_mulai');
-            $table->date('tanggal_selesai');
-            $table->string('info');
-            $table->enum('status', ['Soon', 'On Going', 'Done']);
+            $table->string('email')->nullable();
+            $table->string('otp', 4)->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class PelaksanaanLomba extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pelaksanaan_lomba');
+        Schema::dropIfExists('otp');
     }
 }

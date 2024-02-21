@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class LombaController extends Controller
 {
-    public function getDataLomba(Request $request) {
+    public function getDataLomba() {
         $status = 0;
         $message = '';
         $responseCode = Response::HTTP_BAD_REQUEST;
@@ -20,7 +20,7 @@ class LombaController extends Controller
         
         try {
             $status = 1;
-            $message = 'Berhasil menampilkan list data lomba.';
+            $message = 'Success';
             $responseCode = Response::HTTP_OK;
             $lomba = Lomba::get();
 
@@ -30,7 +30,7 @@ class LombaController extends Controller
                         ->where('id_mst_lomba', $value->id)
                         ->get();
     
-                    $value->pelaksanaan_lomba = DB::table('master_detail_lomba')
+                    $value->pelaksanaan_lomba = DB::table('pelaksanaan_lomba')
                         ->where('id_mst_lomba', $value->id)
                         ->get();
                 }
@@ -49,32 +49,33 @@ class LombaController extends Controller
         } finally {
             $response = [
                 'status' => $status,
+                'status_code' => $responseCode,
                 'message' => $message,
-                'data' => $data
+                'response' => $data
             ];
 
             return response()->json($response, $responseCode);
         }
     }
 
-    public function getDataLombaById($id) {
+    public function getDataLombaById(Request $request) {
         $status = 0;
         $message = '';
-        $responseCode = Response::HTTP_BAD_REQUEST;
         $data = null;
+        $responseCode = Response::HTTP_BAD_REQUEST;
         
         try {
             $status = 1;
-            $message = 'Berhasil menampilkan data lomba berdasarkan id.';
+            $message = 'Success';
             $responseCode = Response::HTTP_OK;
-            $lomba = Lomba::find($id);
+            $lomba = Lomba::find($request->get('id'));
 
             if($lomba) {
                 $lomba->detail_lomba = DB::table('master_detail_lomba')
                     ->where('id_mst_lomba', $lomba->id)
                     ->get();
 
-                $lomba->pelaksanaan_lomba = DB::table('master_detail_lomba')
+                $lomba->pelaksanaan_lomba = DB::table('pelaksanaan_lomba')
                     ->where('id_mst_lomba', $lomba->id)
                     ->get();
                 $data = $lomba;
@@ -92,8 +93,9 @@ class LombaController extends Controller
         } finally {
             $response = [
                 'status' => $status,
+                'status_code' => $responseCode,
                 'message' => $message,
-                'data' => $data
+                'response' => $data
             ];
 
             return response()->json($response, $responseCode);
