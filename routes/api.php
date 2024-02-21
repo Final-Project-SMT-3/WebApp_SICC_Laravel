@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\LombaController;
 use App\Http\Controllers\API\PendaftaranController;
+use App\Http\Controllers\API\KelompokController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,14 +27,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //         Route::get('/{id}', [LombaController::class, 'getDataLombaById']);
 //     });
 
+// Pengajuan Controller
 Route::post('/register', [PendaftaranController::class, 'register']);
 Route::post('/login', [PendaftaranController::class, 'login']);
 Route::post('/get-otp', [PendaftaranController::class, 'emailVerification']);
-Route::post('email-verification', [PendaftaranController::class, 'checkVerification']);
+Route::post('/email-verification', [PendaftaranController::class, 'checkVerification']);
 Route::post('/forget-password', [PendaftaranController::class, 'forgetPassword']);
-Route::post('/get-data-kelompok', [PendaftaranController::class, 'getDataKelompok']);
-Route::post('/insert-kelompok', [PendaftaranController::class, 'insertKelompok']);
-Route::get('/get-edit-kelompok', [PendaftaranController::class, 'getEditKelompok']);
-Route::post('/edit', [PendaftaranController::class, 'edit']);
+
+// Kelompok Controller
+Route::post('/get-data-kelompok', [KelompokController::class, 'getDataKelompok']);
+Route::post('/insert-kelompok', [KelompokController::class, 'insertKelompok']);
+Route::get('/get-edit-kelompok', [KelompokController::class, 'getEditKelompok']);
+Route::post('/edit', [KelompokController::class, 'edit']);
+
+// Lomba Controller
 Route::get('/get-data-lomba', [LombaController::class, 'getDataLomba']);
 Route::post('/get-data-lomba-id', [LombaController::class, 'getDataLombaById']);
