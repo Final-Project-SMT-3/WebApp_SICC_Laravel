@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Mail\EmailVerif;
 use App\Models\Kelompok;
 use App\Models\User;
 use Exception;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use stdClass;
 
 class PendaftaranController extends Controller
@@ -250,5 +252,98 @@ class PendaftaranController extends Controller
 
             return response()->json($response, $responseCode);
         }        
+    }
+
+    public function emailVerification(Request $request) {
+        $status = 0;
+        $message = '';
+        $responseCode = Response::HTTP_BAD_REQUEST;
+
+        DB::beginTransaction();
+        try {
+            $status = 1;
+            $message = 'Berhasil mengirim OTP!';
+            $responseCode = Response::HTTP_OK;
+            
+            $email = $request->get('email');
+            $otp = random_int(1000, 9999);
+            DB::table('otp')
+                ->insert([
+                    'email' => $email,
+                    'otp' => $otp
+                ]);
+            DB::commit();
+
+            $data = [
+                'otp' => $otp
+            ];
+
+            Mail::to($email)->send(new EmailVerif($data));
+        } catch (Exception $e) {
+            DB::rollBack();
+            $status = 0;
+            $message = 'Terjadi kesalahan. ' . $e->getMessage();
+            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+        } catch (QueryException $e) {
+            DB::rollBack();
+            $status = 0;
+            $message = 'Terjadi kesalahan. ' . $e->getMessage();
+            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+        } finally {
+            $response = [
+                'status' => $status,
+                'message' => $message
+            ];
+
+            return response()->json($response, $responseCode);
+        }
+    }
+
+    public function checkVerification(Request $request) {
+        $status = 0;
+        $message = '';
+        $responseCode = Response::HTTP_BAD_REQUEST;
+
+        try {
+            $status = 1;
+            $responseCode = Response::HTTP_OK;
+            $email = $request->get('email');
+            $otp = $request->get('otp');
+
+            $check = DB::table('otp')
+                ->where('otp', $otp)
+                ->where('email', $email)
+                ->where('status', 1)
+                ->count();
+                
+            if ($check > 0) {
+                $message = 'Email verifikasi berhasil.';
+
+                DB::table('otp')
+                    ->where('otp', $otp)
+                    ->where('email', $email)
+                    ->where('status', 1)
+                    ->update([
+                        'status' => 0
+                    ]);
+            }
+            else 
+                $message = 'Email atau OTP yang dimasukkan salah.';
+        } catch (Exception $e) {
+            $status = 0;
+            $message = 'Terjadi kesalahan. ' . $e->getMessage();
+            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+        } catch (QueryException $e) {
+            $status = 0;
+            $message = 'Terjadi kesalahan. ' . $e->getMessage();
+            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+        } finally {
+            $response = [
+                'status' => $status,
+                'message' => $message
+            ];
+
+            return response()->json($response, $responseCode);
+        }
     }
 }
