@@ -346,4 +346,63 @@ class PendaftaranController extends Controller
             return response()->json($response, $responseCode);
         }
     }
+
+    public function forgetPassword(Request $request) {
+        $status = 0;
+        $message = '';
+        $responseCode = Response::HTTP_BAD_REQUEST;
+
+        DB::beginTransaction();
+        try {
+            $status = 1;
+            $responseCode = Response::HTTP_OK;
+            $email = $request->get('email');
+            $otp = $request->get('otp');
+            $password = $request->get('password');
+
+            $check = DB::table('otp')
+                ->where('otp', $otp)
+                ->where('email', $email)
+                ->where('status', 1)
+                ->count();
+                
+            if ($check > 0) {
+                $message = 'Berhasil melakukan lupa password.';
+
+                DB::table('otp')
+                    ->where('otp', $otp)
+                    ->where('email', $email)
+                    ->where('status', 1)
+                    ->update([
+                        'status' => 0
+                    ]);
+
+                DB::table('users')
+                    ->where('email', $email)
+                    ->update([
+                        'password' => Hash::make($password)
+                    ]);
+                DB::commit();
+            }
+            else 
+                $message = 'Email atau OTP yang dimasukkan salah.';
+        } catch (Exception $e) {
+            DB::rollBack();
+            $status = 0;
+            $message = 'Terjadi kesalahan. ' . $e->getMessage();
+            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+        } catch (QueryException $e) {
+            DB::rollBack();
+            $status = 0;
+            $message = 'Terjadi kesalahan. ' . $e->getMessage();
+            $responseCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+        } finally {
+            $response = [
+                'status' => $status,
+                'message' => $message
+            ];
+
+            return response()->json($response, $responseCode);
+        }
+    }
 }
