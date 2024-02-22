@@ -18,6 +18,8 @@ class DataPendaftar extends Migration
             $table->unsignedBigInteger('id_kelompok');
             $table->unsignedBigInteger('id_mst_lomba');
             $table->enum('status', ['Accept', 'Waiting Approval', 'Decline']);
+            $table->foreign('id_kelompok')->references('id')->on('kelompoks');
+            $table->foreign('id_mst_lomba')->references('id')->on('master_lomba');
             $table->timestamps();
         });
     }

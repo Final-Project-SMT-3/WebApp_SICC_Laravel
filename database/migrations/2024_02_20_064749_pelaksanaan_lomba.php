@@ -20,6 +20,7 @@ class PelaksanaanLomba extends Migration
             $table->date('tanggal_selesai');
             $table->string('info');
             $table->enum('status', ['Soon', 'On Going', 'Done']);
+            $table->foreign('id_mst_lomba')->references('id')->on('master_lomba');
             $table->timestamps();
         });
     }

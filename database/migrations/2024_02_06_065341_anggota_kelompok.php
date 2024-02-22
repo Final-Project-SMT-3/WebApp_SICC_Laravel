@@ -19,6 +19,7 @@ class AnggotaKelompok extends Migration
             $table->string('nama_anggota');
             $table->string('nim_anggota');
             $table->string('prodi_anggota');
+            $table->foreign('id_kelompok')->references('id')->on('kelompoks');
             $table->timestamps();
         });
     }

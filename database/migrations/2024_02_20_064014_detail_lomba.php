@@ -18,6 +18,7 @@ class DetailLomba extends Migration
             $table->unsignedBigInteger('id_mst_lomba');
             $table->longText('detail_lomba');
             $table->string('foto')->nullable();
+            $table->foreign('id_mst_lomba')->references('id')->on('master_lomba');
             $table->timestamps();
         });
     }
