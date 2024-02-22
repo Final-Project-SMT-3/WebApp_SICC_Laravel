@@ -15,10 +15,9 @@ class LombaController extends Controller
      */
     public function index()
     {
-        $data = Lomba::orderBy('id', 'asc')->get();
-        $param['data'] = $data;
+        $data = Lomba::join('master_detail_lomba', 'master_detail_lomba.id_mst_lomba', '=', 'master_lomba.id')->select('master_lomba.id', 'nama_lomba', 'detail_lomba', 'foto')->get();
 
-        return view('admin_page.pages.lomba.lomba', compact('param'));
+        return view('admin_page.pages.lomba.lomba', compact('data'));
     }
 
     /**

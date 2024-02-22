@@ -52,11 +52,11 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        if ($user->role === 'admin') {
+        if ($user->role === 'Admin') {
             return redirect('/admin');
-        } elseif ($user->role === 'mahasiswa') {
+        } elseif ($user->role === 'Mahasiswa') {
             return redirect('/verified');
-        } elseif ($user->role === 'dosen') {
+        } elseif ($user->role === 'Dosen') {
             return redirect('/admin');
         } else {
             abort(Response::HTTP_NOT_FOUND);

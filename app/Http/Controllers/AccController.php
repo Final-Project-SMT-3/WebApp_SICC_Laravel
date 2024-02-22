@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelompok;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,11 +15,7 @@ class AccController extends Controller
      */
     public function index()
     {
-        $data = DB::table('kelompok')
-            ->join('master_detail_lomba', 'kelompok.id_detail_lomba', '=', 'master_detail_lomba.id')
-            ->join('master_lomba', 'master_detail_lomba.id_mst_lomba', '=', 'master_lomba.id')
-            ->select('nama_lomba', 'nama_kelompok', 'nim_anggota', 'nama_anggota')
-            ->get();
+        $data = Kelompok::join('anggota_kelompoks', 'anggota_kelompoks.id_kelompok', '=', 'kelompoks.id')->select('nama_kelompok', 'nim_ketua', 'nama_ketua', 'nama_anggota', 'nim_anggota')->get();
         return view('admin_page.pages.acc.acc', compact('data'));
     }
 

@@ -8,7 +8,7 @@
                     <p>Ini adalah halaman untuk mengatur Juara</p>
                     <a href="/admin/MasterJuara/create"><button class="btn btn-primary">Tambah Lomba</button></a>
                 </div>
-                <table id="<?= count($data) > 0 ? 'dataTables' : '' ?>" class="table table-hover" style="width:100%">
+                <table id="" class="table table-hover" style="width:100%">
                     <thead>
                         <tr>
                             <th>Nomor</th>

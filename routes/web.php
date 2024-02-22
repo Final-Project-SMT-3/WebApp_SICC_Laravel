@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\JuaraController;
 use App\Http\Controllers\LombaController;
@@ -38,10 +39,11 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
     // });
     Route::view('/', 'admin_page.index');
     Route::resource('/acc', AccController::class);
-    Route::resource('/blog', BlogController::class);
+    // Route::resource('/blog', BlogController::class);
     Route::resource('/lomba', LombaController::class);
     Route::resource('/faq', FaqController::class);
     Route::resource('/juara', JuaraController::class);
+    Route::get('/chartdata', [ChartController::class, 'getData']);
     // Route::resource('/pengajuanBimbingan', PengajuanBimbinganController::class);
     // Route::get('/pengajuanBimbingan/updateAccept/{id}', [PengajuanBimbinganController::class, 'updateAccept'])->name('pengajuanBimbingan.updateAccept');
     // Route::get('/pengajuanBimbingan/updateDecline/{id}', [PengajuanBimbinganController::class, 'updateDecline'])->name('pengajuanBimbingan.updateDecline');
