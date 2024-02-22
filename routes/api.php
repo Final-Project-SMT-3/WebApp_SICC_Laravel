@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\LombaController;
 use App\Http\Controllers\API\PendaftaranController;
 use App\Http\Controllers\API\KelompokController;
+use App\Http\Controllers\API\DosenController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -43,3 +44,7 @@ Route::post('/edit', [KelompokController::class, 'edit']);
 // Lomba Controller
 Route::get('/get-data-lomba', [LombaController::class, 'getDataLomba']);
 Route::post('/get-data-lomba-id', [LombaController::class, 'getDataLombaById']);
+
+// Dosen Controller
+Route::get('get-data-dosen', [DosenController::class, 'getDosen']);
+Route::post('/get-data-dosen-id', [DosenController::class, 'getDosenById']);

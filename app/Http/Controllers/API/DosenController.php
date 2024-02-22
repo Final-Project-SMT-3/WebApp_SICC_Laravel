@@ -3,17 +3,15 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Lomba;
-use App\Models\Master_Lomba;
+use App\Models\Master_Dospem;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 
-class LombaController extends Controller
+class DosenController extends Controller
 {
-    public function getDataLomba() {
+    public function getDosen() {
         $status = 0;
         $message = '';
         $responseCode = Response::HTTP_BAD_REQUEST;
@@ -23,21 +21,12 @@ class LombaController extends Controller
             $status = 1;
             $message = 'Success';
             $responseCode = Response::HTTP_OK;
-            $lomba = Master_Lomba::get();
+            $dospem = Master_Dospem::get();
 
-            if($lomba) {
-                foreach($lomba as $key => $value) {
-                    $value->detail_lomba = DB::table('master_detail_lomba')
-                        ->where('id_mst_lomba', $value->id)
-                        ->get();
-    
-                    $value->pelaksanaan_lomba = DB::table('pelaksanaan_lomba')
-                        ->where('id_mst_lomba', $value->id)
-                        ->get();
-                }
-                $data = $lomba;
+            if ($dospem) {
+                $data = $dospem;
             } else {
-                $message = 'Data Lomba masih belum tersedia.';
+                $message = 'Data Dosen masih belum tersedia.';
             }
         } catch (Exception $e) {
             $status = 0;
@@ -59,29 +48,22 @@ class LombaController extends Controller
         }
     }
 
-    public function getDataLombaById(Request $request) {
+    public function getDosenById(Request $request) {
         $status = 0;
         $message = '';
         $data = null;
         $responseCode = Response::HTTP_BAD_REQUEST;
-        
+
         try {
             $status = 1;
             $message = 'Success';
             $responseCode = Response::HTTP_OK;
-            $lomba = Master_Lomba::find($request->get('id'));
+            $dospem = Master_Dospem::find($request->get('id'));
 
-            if($lomba) {
-                $lomba->detail_lomba = DB::table('master_detail_lomba')
-                    ->where('id_mst_lomba', $lomba->id)
-                    ->get();
-
-                $lomba->pelaksanaan_lomba = DB::table('pelaksanaan_lomba')
-                    ->where('id_mst_lomba', $lomba->id)
-                    ->get();
-                $data = $lomba;
+            if ($dospem) {
+                $data = $dospem;
             } else {
-                $message = 'Data Lomba masih belum tersedia.';
+                $message = 'Data Dosen masih belum tersedia.';
             }
         } catch (Exception $e) {
             $status = 0;
