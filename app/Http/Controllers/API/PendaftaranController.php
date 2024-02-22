@@ -119,23 +119,30 @@ class PendaftaranController extends Controller
         DB::beginTransaction();
         try {
             $status = 1;
-            $message = 'Success';
             $responseCode = Response::HTTP_OK;
             
-            $email = $request->get('email');
-            $otp = random_int(1000, 9999);
-            DB::table('otp')
-                ->insert([
-                    'email' => $email,
+            $user = User::where('email', $request->get('email'))->first();
+
+            if($user != null) {
+                $message = 'Success';
+                
+                $email = $request->get('email');
+                $otp = random_int(1000, 9999);
+                DB::table('otp')
+                    ->insert([
+                        'email' => $email,
+                        'otp' => $otp
+                    ]);
+                DB::commit();
+    
+                $data = [
                     'otp' => $otp
-                ]);
-            DB::commit();
-
-            $data = [
-                'otp' => $otp
-            ];
-
-            Mail::to($email)->send(new EmailVerif($data));
+                ];
+    
+                Mail::to($email)->send(new EmailVerif($data));
+            } else {
+                $message = 'Email tidak terdaftar.';
+            }
         } catch (Exception $e) {
             DB::rollBack();
             $status = 0;
@@ -222,19 +229,11 @@ class PendaftaranController extends Controller
             $check = DB::table('otp')
                 ->where('otp', $otp)
                 ->where('email', $email)
-                ->where('status', 1)
+                ->where('status', 0)
                 ->count();
                 
             if ($check > 0) {
                 $message = 'Success';
-
-                DB::table('otp')
-                    ->where('otp', $otp)
-                    ->where('email', $email)
-                    ->where('status', 1)
-                    ->update([
-                        'status' => 0
-                    ]);
 
                 DB::table('users')
                     ->where('email', $email)

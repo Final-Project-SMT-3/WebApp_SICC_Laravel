@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Master_Lomba as ModelsMaster_Lomba;
+use App\Models\Master_Lomba;
 use Illuminate\Database\Seeder;
 
-class master_lomba extends Seeder
+class LombaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class master_lomba extends Seeder
      */
     public function run()
     {
-        ModelsMaster_Lomba::insert([
+        Master_Lomba::insert([
             [
                 'nama_lomba' => 'PKM',
                 'created_at' => now()

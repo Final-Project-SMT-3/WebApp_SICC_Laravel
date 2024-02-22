@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Master_Detail_Lomba as ModelsMaster_Detail_Lomba;
+use App\Models\Master_Detail_Lomba;
 use Illuminate\Database\Seeder;
 
-class master_detail_lomba extends Seeder
+class DetailLombaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class master_detail_lomba extends Seeder
      */
     public function run()
     {
-        ModelsMaster_Detail_Lomba::insert([
+        Master_Detail_Lomba::insert([
             [
                 'id_mst_lomba' => 1,
                 'detail_lomba' => 'Program Kreativitas Mahasiswa adalah kegiatan untuk meningkatkan mutu peserta didik (mahasiswa) di perguruan tinggi agar kelak dapat menjadi anggota masyarakat yang memiliki kemampuan akademis dan/atau profesional yang dapat menerapkan, mengembangkan dan meyebarluaskan ilmu pengetahuan, teknologi dan/atau kesenian serta memperkaya budaya nasional.',

@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Pelaksanaan_Lomba as ModelsPelaksanaan_Lomba;
+use App\Models\Pelaksanaan_Lomba;
 use Illuminate\Database\Seeder;
 
-class pelaksanaan_lomba extends Seeder
+class PelaksanaanSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class pelaksanaan_lomba extends Seeder
      */
     public function run()
     {
-        ModelsPelaksanaan_Lomba::insert([
+        Pelaksanaan_Lomba::insert([
             [
                 'id_mst_lomba' => 1,
                 'tanggal_mulai' => now(),

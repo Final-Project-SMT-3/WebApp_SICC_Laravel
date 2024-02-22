@@ -15,9 +15,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             // UserSeeder::class
-            master_lomba::class,
-            master_detail_lomba::class,
-            pelaksanaan_lomba::class
+            LombaSeeder::class,
+            PelaksanaanSeeder::class,
+            DetailLombaSeeder::class,
+            DospemSeeder::class
         ]);
         // \App\Models\User::factory(10)->create();
     }
